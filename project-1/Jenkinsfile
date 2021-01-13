@@ -1,0 +1,11 @@
+pipeline {
+    agent none
+    stages {
+        stage('Prepare') {
+            agent { docker 'node:12-alpine' }
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
+}
