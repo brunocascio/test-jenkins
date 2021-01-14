@@ -1,15 +1,36 @@
 pipeline {
-    agent none
-    stages {
-        stage('Prepare') {
-            agent { 
-                docker {
-                    image 'node:lts-alpine' 
+	environment {
+		CI = true
+	}
+	stages {
+		// Execute on every commit
+		stage('Build') {
+			steps {
+				sh 'make build'
+			}
+		}
+		parallel {
+			stage('Lint tests') {
+                steps {
+                    sh 'make lint'
                 }
             }
-            steps {
-                sh 'node --version'
+            stage('Unit tests') {
+                steps {
+                    sh 'make unit-tests'
+                }
             }
+            stage('E2E tests') {
+                steps {
+                    sh 'make e2e-tests'
+                }
+            }
+		}
+	}
+    post {
+        cleanup {
+			sh 'make clean'
+            cleanWS()
         }
     }
 }
