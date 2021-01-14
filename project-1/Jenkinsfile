@@ -10,23 +10,25 @@ pipeline {
 				sh 'make build'
 			}
 		}
-		parallel {
-			stage('Lint tests') {
-                steps {
-                    sh 'make lint'
+        stage('Tests') {
+            parallel {
+                stage('Lint tests') {
+                    steps {
+                        sh 'make lint'
+                    }
+                }
+                stage('Unit tests') {
+                    steps {
+                        sh 'make unit-tests'
+                    }
+                }
+                stage('E2E tests') {
+                    steps {
+                        sh 'make e2e-tests'
+                    }
                 }
             }
-            stage('Unit tests') {
-                steps {
-                    sh 'make unit-tests'
-                }
-            }
-            stage('E2E tests') {
-                steps {
-                    sh 'make e2e-tests'
-                }
-            }
-		}
+        }
 	}
     post {
         cleanup {
