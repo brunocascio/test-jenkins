@@ -12,28 +12,24 @@ pipeline {
                 }
 			}
 		}
-        stage('Tests') {
-            parallel {
-                stage('Lint tests') {
-                    steps {
-                        dir('project-1') {
-                            sh 'make lint'
-                        }
-                    }
+        stage('Lint tests') {
+            steps {
+                dir('project-1') {
+                    sh 'make lint'
                 }
-                stage('Unit tests') {
-                    steps {
-                        dir('project-1') {
-                            sh 'make unit-tests'
-                        }
-                    }
+            }
+        }
+        stage('Unit tests') {
+            steps {
+                dir('project-1') {
+                    sh 'make unit-tests'
                 }
-                stage('E2E tests') {
-                    steps {
-                        dir('project-1') {
-                            sh 'make e2e-tests'
-                        }
-                    }
+            }
+        }
+        stage('E2E tests') {
+            steps {
+                dir('project-1') {
+                    sh 'make e2e-tests'
                 }
             }
         }
