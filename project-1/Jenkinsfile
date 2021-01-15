@@ -39,7 +39,7 @@ pipeline {
             dir('project-1') {
 			    sh 'make clean'
             }
-            cleanWS()
+            cleanWs()
         }
     }
 }
