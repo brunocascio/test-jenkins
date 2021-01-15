@@ -7,24 +7,32 @@ pipeline {
 		// Execute on every commit
 		stage('Build') {
 			steps {
-				sh 'make build'
+                dir('project-1') {
+				    sh 'make build'
+                }
 			}
 		}
         stage('Tests') {
             parallel {
                 stage('Lint tests') {
                     steps {
-                        sh 'make lint'
+                        dir('project-1') {
+                            sh 'make lint'
+                        }
                     }
                 }
                 stage('Unit tests') {
                     steps {
-                        sh 'make unit-tests'
+                        dir('project-1') {
+                            sh 'make unit-tests'
+                        }
                     }
                 }
                 stage('E2E tests') {
                     steps {
-                        sh 'make e2e-tests'
+                        dir('project-1') {
+                            sh 'make e2e-tests'
+                        }
                     }
                 }
             }
@@ -32,7 +40,9 @@ pipeline {
 	}
     post {
         cleanup {
-			sh 'make clean'
+            dir('project-1') {
+			    sh 'make clean'
+            }
             cleanWS()
         }
     }
