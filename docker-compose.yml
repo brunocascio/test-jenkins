@@ -5,10 +5,13 @@ services:
     build: .
     image: custom-jenkins:lts
     network_mode: host
+    user: root
     volumes:
       - jenkins_home:/var/jenkins_home
+      - /var/lib/docker:/var/lib/docker
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/local/bin/docker
+      - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
 
 volumes:
   jenkins_home:

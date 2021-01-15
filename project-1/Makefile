@@ -2,10 +2,10 @@ build:
 	@docker-compose build
  
 lint:
-	@docker-compose run --rm app lint-test-script.sh
+	@docker-compose run app lint-test-script.sh
  
 unit-tests:
-	@docker-compose run --rm app unit-test-script.sh
+	@docker-compose run app unit-test-script.sh
  
 e2e-tests:
     # Run dettached services (databases, queues, etc)
